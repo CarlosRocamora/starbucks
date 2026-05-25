@@ -1,5 +1,5 @@
 import assert from 'node:assert'
-import { contabilizarQuantidadeDeCafe } from '../src/starbucks.js'
+import { contabilizarQuantidadeDeItens } from '../src/starbucks.js'
 
 describe('Testes para gestão de cafeteria', () => {
     it('TC 1 - Ao menos 1 café na lista', () => {
@@ -9,10 +9,11 @@ describe('Testes para gestão de cafeteria', () => {
             { nome: "bolo de cenoura", valor: 12.00 },
             { nome: "café com leite", valor: 5.00 }
         ]
+        const itemPesquisado = "café"
         const retornoEsperado = 1
 
         // Act
-        const quantidadeDeCafes = contabilizarQuantidadeDeCafe(listaPedidos)
+        const quantidadeDeCafes = contabilizarQuantidadeDeItens(itemPesquisado, listaPedidos)
 
         // Assert
         assert.equal(retornoEsperado, quantidadeDeCafes)
@@ -24,10 +25,11 @@ describe('Testes para gestão de cafeteria', () => {
             { nome: "bolo de cenoura", valor: 12.00 },
             { nome: "café com leite", valor: 5.00 }
         ]
+        const itemPesquisado = "café"
         const retornoEsperado = 0
 
         // Act
-        const quantidadeDeCafes = contabilizarQuantidadeDeCafe(listaPedidos)
+        const quantidadeDeCafes = contabilizarQuantidadeDeItens(itemPesquisado, listaPedidos)
 
         // Assert
         assert.equal(retornoEsperado, quantidadeDeCafes)
@@ -41,12 +43,44 @@ describe('Testes para gestão de cafeteria', () => {
             { nome: "café com leite", valor: 5.00 },
             { nome: "café", valor: 4.00 },
         ]
+        const itemPesquisado = "café"
         const retornoEsperado = 2
 
         // Act
-        const quantidadeDeCafes = contabilizarQuantidadeDeCafe(listaPedidos)
+        const quantidadeDeCafes = contabilizarQuantidadeDeItens(itemPesquisado, listaPedidos)
 
         // Assert
         assert.equal(retornoEsperado, quantidadeDeCafes)
+    })
+
+    it('TC 4 - Retornar uma lista de pedidos vazia', () => {
+        // Arrange
+        const listaPedidos = []
+        const itemPesquisado = "café"
+        const retornoEsperado = 0
+
+        // Act
+        const quantidadeDeCafes = contabilizarQuantidadeDeItens(itemPesquisado, listaPedidos)
+
+        // Assert
+        assert.equal(retornoEsperado, quantidadeDeCafes)
+    })
+
+    it('TC 5 - Filtrar por um item específico da lista', () => {
+        // Arrange
+        const listaPedidos = [
+            { nome: "café", valor: 4.00 },
+            { nome: "bolo de cenoura", valor: 12.00 },
+            { nome: "café com leite", valor: 5.00 },
+            { nome: "café", valor: 4.00 },
+        ]
+        const itemPesquisado = "bolo de cenoura"
+        const retornoEsperado = 1
+
+        // Act
+        const quantidadeDeItens = contabilizarQuantidadeDeItens(itemPesquisado, listaPedidos)
+
+        // Assert
+        assert.equal(retornoEsperado, quantidadeDeItens)
     })
 })
