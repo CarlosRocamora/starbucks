@@ -42,10 +42,10 @@ A pipeline é acionada automaticamente ao realizar push nas branches:
 
 ### 🔹 Execução Agendada (Schedule)
 
-A pipeline roda automaticamente a cada 30 minutos utilizando cron:
-
-```
-*/30 * * * *
+```yaml
+schedule:
+  - cron: '*/30 * * * *'   # a cada 30 minutos
+  - cron: '0 0 * * 5'      # toda sexta-feira à meia-noite (UTC)
 ```
 
 ---
